@@ -2,7 +2,7 @@
 
 > 让儿女用三分钟做一份「图文分步说明书」，贴在冰箱上，父母照着做就行。
 
-[**下载 APK**](https://github.com/OWNER/webook/releases/latest) ｜ [功能](#功能) ｜ [自己构建](#自己构建-apk) ｜ [技术实现](#技术实现)
+[**下载 APK（v1.4，1.7MB）**](./微书-v1.4.apk) ｜ [功能](#功能) ｜ [自己构建](#自己构建-apk) ｜ [技术实现](#技术实现)
 
 <p align="center">
   <img src="docs/images/01.png" width="23%" alt="阅读模式的说明书列表">
@@ -53,7 +53,7 @@
 
 ## 下载安装
 
-1. 打开 [Releases](https://github.com/OWNER/webook/releases/latest)，下载 `webook-x.x.apk`
+1. 下载本页顶部链接的 `微书-v1.4.apk`（就在仓库文件列表里，点开即下）
 2. 手机点开安装，系统提示「未知来源」时允许一次
 3. **首次打开不申请任何权限**——老人点开就能看
 

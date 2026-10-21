@@ -8,8 +8,10 @@ android/captures/
 *.iml
 *.hprof
 
-# ---- 安装包（走 Releases 分发，不进仓库）----
+# ---- 安装包 ----
+# 仅最新版随仓库分发（点开即下载），历史版本不进仓库
 *.apk
+!微书-v1.4.apk
 *.aab
 *.jks
 *.keystore
