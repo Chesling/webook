@@ -1,0 +1,39 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'cn.webook.app'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'cn.webook.app'
+        minSdk 26
+        targetSdk 34
+        versionCode 5
+        versionName '1.4'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            // 用 debug 签名，保证这个包能直接装到手机上（自己用、给家人用都不需要上架密钥）
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE*'
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core:1.13.1'
+    implementation 'androidx.webkit:webkit:1.8.0'
+}

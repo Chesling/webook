@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <cache-path name="webook_cache" path="." />
+    <files-path name="webook_exports" path="exports/" />
+    <external-path name="webook_external" path="." />
+    <external-cache-path name="webook_ext_cache" path="." />
+</paths>

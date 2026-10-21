@@ -1,0 +1,30 @@
+# ---- Android 构建产物 ----
+android/.gradle/
+android/build/
+android/app/build/
+android/.idea/
+android/local.properties
+android/captures/
+*.iml
+*.hprof
+
+# ---- 安装包（走 Releases 分发，不进仓库）----
+*.apk
+*.aab
+*.jks
+*.keystore
+
+# ---- 调试用临时文件 ----
+prototype/_*.html
+prototype/_*.js
+prototype/_*.png
+
+# ---- 系统 / 编辑器 ----
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# ---- 本机工作区数据（不上传）----
+.workbuddy/

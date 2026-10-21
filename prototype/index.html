@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>微书 WeBook</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ============ 首页（阅读模式 / 创作模式共用） ============ -->
+  <section id="view-home" class="view on">
+    <div class="bar" id="home-bar">
+      <div class="bar-side">
+        <span class="logo">微书</span>
+        <span class="tag" id="home-tag">阅读模式</span>
+      </div>
+      <div class="bar-mid"></div>
+      <div class="bar-side bar-right">
+        <button class="lp" id="lp-btn" type="button">
+          <span class="lp-ic">
+            <svg class="ring" viewBox="0 0 44 44" aria-hidden="true">
+              <circle cx="22" cy="22" r="19" fill="none" stroke="rgba(0,0,0,.10)" stroke-width="3"></circle>
+              <circle class="ring-fill" cx="22" cy="22" r="19" fill="none" stroke="#0F6E56" stroke-width="3"
+                      stroke-linecap="round" transform="rotate(-90 22 22)"></circle>
+            </svg>
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 20h4l10-10a2.8 2.8 0 0 0-4-4L4 16z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M14 6l4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="lp-txt">创作<em>长按 3 秒</em></span>
+        </button>
+        <button class="btn btn-exit" id="btn-exit" type="button" hidden>
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          退出创作模式
+        </button>
+      </div>
+    </div>
+
+    <div class="list" id="home-list"></div>
+
+    <div class="foot" id="home-foot">
+      <button class="btn btn-huge btn-primary" id="btn-new" type="button" hidden>
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        新建说明书
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ 创作：某份说明书的步骤列表 ============ -->
+  <section id="view-steps" class="view">
+    <div class="bar bar-edit">
+      <div class="bar-side">
+        <button class="btn btn-bar" id="steps-back" type="button">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          返回
+        </button>
+      </div>
+      <div class="bar-mid">
+        <span class="bar-title" id="steps-title">说明书</span>
+      </div>
+      <div class="bar-side bar-right">
+        <button class="btn btn-bar" id="steps-rename" type="button">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 20h4l10-10a2.8 2.8 0 0 0-4-4L4 16z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+          </svg>
+          改名
+        </button>
+      </div>
+    </div>
+
+    <div class="list" id="steps-list"></div>
+
+    <div class="foot foot-row">
+      <button class="btn btn-huge btn-ghost" id="steps-style" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 19l5-13 5 13" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6.2 15h5.6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+        </svg>
+        字号与配色
+      </button>
+      <button class="btn btn-huge btn-ghost" id="steps-export" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 4v10" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+          <path d="M8 11l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 19h14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+        </svg>
+        导出与打印
+      </button>
+    </div>
+    <input type="file" id="file-gallery" accept="image/*" hidden>
+    <input type="file" id="file-camera" accept="image/*" capture="environment" hidden>
+  </section>
+
+  <!-- ============ 创作：单步编辑（手绘标注 + 文字） ============ -->
+  <section id="view-annotate" class="view">
+    <div class="bar bar-edit">
+      <div class="bar-side">
+        <button class="btn btn-bar" id="ann-back" type="button">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          返回
+        </button>
+      </div>
+      <div class="bar-mid"><span class="bar-title" id="ann-title">第 1 步</span></div>
+      <div class="bar-side bar-right">
+        <button class="btn btn-bar btn-ok" id="ann-save" type="button">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          完成
+        </button>
+      </div>
+    </div>
+
+    <div class="ann-wrap" id="ann-wrap">
+      <canvas id="ann-canvas"></canvas>
+    </div>
+
+    <div class="ann-photorow">
+      <button class="btn btn-tool" id="ann-crop" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="6" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M3 6l6 4M21 6l-6 4M3 18l6-4M21 18l-6-4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        调整照片（大小 / 位置）
+      </button>
+    </div>
+
+    <div class="tools">
+      <div class="tool-row" id="tool-row">
+        <button class="btn btn-tool is-on" data-tool="ellipse" type="button">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="8.5" ry="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+          红圈
+        </button>
+        <button class="btn btn-tool" data-tool="arrow" type="button">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 18L18 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M18 6h-5M18 6v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          箭头
+        </button>
+        <button class="btn btn-tool" data-tool="number" type="button">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <text x="12" y="16.5" text-anchor="middle" font-size="10" font-weight="500" fill="currentColor">1</text>
+          </svg>
+          序号
+        </button>
+        <button class="btn btn-tool" data-tool="free" type="button">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 16c2.5 0 2.5-6 5-6s2.5 6 5 5 2-5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          手绘
+        </button>
+      </div>
+      <div class="tool-row tool-row-2">
+        <div class="colors" id="color-row">
+          <button class="dot-btn is-on" data-color="#E24B4A" type="button" style="background:#E24B4A" aria-label="红色"></button>
+          <button class="dot-btn" data-color="#EF9F27" type="button" style="background:#EF9F27" aria-label="黄色"></button>
+          <button class="dot-btn" data-color="#16150F" type="button" style="background:#16150F" aria-label="黑色"></button>
+          <button class="dot-btn" data-color="#FFFFFF" type="button" style="background:#fff;border:1px solid rgba(0,0,0,.25)" aria-label="白色"></button>
+        </div>
+        <button class="btn btn-tool" id="ann-undo" type="button">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 8H5V5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5.5 8.5a7 7 0 1 1 .5 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          撤销
+        </button>
+        <button class="btn btn-tool" id="ann-clear" type="button">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+          </svg>
+          清空
+        </button>
+      </div>
+    </div>
+
+    <div class="textbox">
+      <label class="textbox-label" for="ann-text">这一步要说什么</label>
+      <textarea id="ann-text" rows="2" maxlength="60" placeholder="例如：点这个绿色的微信"></textarea>
+      <div class="hint" id="ann-hint">还没写字，建议 30 字以内，老人看得就不累。</div>
+    </div>
+
+    <!-- 录音：给听不懂普通话的老人 -->
+    <div class="recbox" id="recbox">
+      <div class="rec-head">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="9" y="3" width="6" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M6 11a6 6 0 0 0 12 0M12 17v3M9 20h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <span>录一句家乡话（可以不录）</span>
+      </div>
+      <p class="rec-tip" id="rec-tip">老人听不懂普通话、也听不惯机器声音时，可以听你亲口说的这句话。录音只存在手机里，不用联网，也不会上传到任何地方。</p>
+      <div id="rec-body"></div>
+    </div>
+
+    <div class="foot foot-row">
+      <button class="btn btn-huge btn-primary" id="ann-pick" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="8.5" cy="10" r="1.6" fill="currentColor"/>
+          <path d="M4 17l4.5-4.5 3 3L15 12l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+        </svg>
+        换一张照片
+      </button>
+      <button class="btn btn-huge btn-danger-solid" id="ann-delstep" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        删掉这一步
+      </button>
+    </div>
+    <input type="file" id="file-ann" accept="image/*" hidden>
+  </section>
+
+  <!-- ============ 创作：调整照片（裁切 / 完整显示） ============ -->
+  <section id="view-crop" class="view view-crop">
+    <div class="bar bar-edit">
+      <div class="bar-side">
+        <button class="btn btn-bar" id="crop-back" type="button">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          返回
+        </button>
+      </div>
+      <div class="bar-mid"><span class="bar-title">调整照片</span></div>
+      <div class="bar-side bar-right">
+        <button class="btn btn-bar btn-ok" id="crop-ok" type="button">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          好了
+        </button>
+      </div>
+    </div>
+
+    <div class="crop-wrap">
+      <div class="crop-stage" id="crop-stage">
+        <img class="crop-img" id="crop-img" alt="这一步的照片" draggable="false">
+        <div class="crop-frame">
+          <span class="crop-frame-tag">老人看到的范围</span>
+        </div>
+      </div>
+      <p class="crop-tip">手指按住照片可以拖动，两指捏合可以放大缩小。<br>白框里就是老人在这一步看到的范围，框外的部分会被裁掉。<br>不想裁掉任何东西？点下面的「完整显示整张照片」。</p>
+    </div>
+
+    <div class="tools">
+      <div class="tool-row">
+        <button class="btn btn-tool" id="crop-zoom-out" type="button">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M8 11h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M16.5 16.5L21 21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          缩小
+        </button>
+        <button class="btn btn-tool" id="crop-zoom-in" type="button">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M8 11h6M11 8v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M16.5 16.5L21 21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          放大
+        </button>
+      </div>
+      <div class="tool-row">
+        <button class="btn btn-tool btn-fit" id="crop-fit" type="button">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3.5" y="5" width="17" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M8 9.5h8M8 14.5h8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <span id="crop-fit-txt">完整显示整张照片（不裁掉任何内容）</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="foot">
+      <button class="btn btn-huge btn-primary" id="crop-done" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        好了，就这样
+      </button>
+      <button class="btn btn-huge" id="crop-repick" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="8.5" cy="10" r="1.6" fill="currentColor"/>
+          <path d="M4 17l4.5-4.5 3 3L15 12l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+        </svg>
+        换一张照片
+      </button>
+    </div>
+    <input type="file" id="file-crop" accept="image/*" hidden>
+  </section>
+
+  <!-- ============ 阅读模式 ============ -->
+  <section id="view-read" class="view view-read">
+    <div class="bar bar-read">
+      <div class="bar-side">
+        <button class="btn btn-bar" id="read-back" type="button">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          说明书
+        </button>
+      </div>
+      <div class="bar-mid"><span class="bar-title" id="read-title">说明书</span></div>
+      <div class="bar-side bar-right"><span class="counter" id="read-count">第 1 / 1 步</span></div>
+    </div>
+
+    <div class="dots" id="read-dots"></div>
+
+    <div class="card-wrap">
+      <canvas id="read-canvas"></canvas>
+    </div>
+    <p class="zoom-hint">
+      <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M8 11h6M11 8v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M16.5 16.5L21 21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      看不清？点一下上面的照片，能放大了看
+    </p>
+
+    <div class="speak-row">
+      <button class="btn btn-speak btn-rec-primary" id="read-audio" type="button" hidden>
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="9" y="3" width="6" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M6 11a6 6 0 0 0 12 0M12 17v3M9 20h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <span id="read-audio-txt">听家里人说的<em>录好的话，最清楚</em></span>
+      </button>
+      <button class="btn btn-speak" id="read-speak" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 9.2h3.2L10 6v12l-3.8-3.2H3z" fill="currentColor"/>
+          <path d="M13.6 8.8a4 4 0 0 1 0 6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M16.6 6.4a7 7 0 0 1 0 11.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <span id="read-speak-txt">机器朗读<em>手机自己念</em></span>
+      </button>
+    </div>
+    <div class="nav">
+      <button class="btn btn-nav" id="read-prev" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M10 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        上一步
+      </button>
+      <button class="btn btn-nav btn-primary" id="read-next" type="button">
+        下一步
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M14 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ 阅读：点图片放大看 ============ -->
+  <div class="zoom" id="zoom" hidden>
+    <div class="zoom-head">
+      <button class="btn btn-zoom-close" id="zoom-close" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        关闭
+      </button>
+      <span class="zoom-title" id="zoom-n">第 1 步</span>
+    </div>
+    <div class="zoom-stage" id="zoom-stage">
+      <div class="zoom-pan" id="zoom-pan"><canvas id="zoom-canvas"></canvas></div>
+    </div>
+    <p class="zoom-tip">手指按住可以拖动，两指捏合可以缩放</p>
+    <div class="zoom-foot">
+      <button class="btn btn-huge" id="zoom-out" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M8 11h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        缩小
+      </button>
+      <button class="btn btn-huge" id="zoom-in" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M8 11h6M11 8v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        放大
+      </button>
+      <button class="btn btn-huge" id="zoom-reset" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 12a8 8 0 1 0 3-6.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M4 4v4h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        回到原样
+      </button>
+      <button class="btn btn-huge btn-primary" id="zoom-back" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        关闭放大
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ 弹层 ============ -->
+  <div class="mask" id="mask" hidden></div>
+
+  <div class="sheet" id="sheet-confirm" hidden>
+    <div class="sheet-in">
+      <h3 class="sheet-title">要进入创作模式吗？</h3>
+      <p class="sheet-desc">进入后可以新建、修改和删除说明书。<br>老人平时看不到这个入口，也改不动内容。</p>
+      <button class="btn btn-huge btn-primary" id="cf-yes" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 20h4l10-10a2.8 2.8 0 0 0-4-4L4 16z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+        </svg>
+        进入创作模式
+      </button>
+      <button class="btn btn-huge" id="cf-no" type="button">取消，我只是随便按按</button>
+    </div>
+  </div>
+
+  <div class="sheet" id="sheet-unsaved" hidden>
+    <div class="sheet-in">
+      <h3 class="sheet-title">这份说明书改过了，要保存吗？</h3>
+      <p class="sheet-desc">你这次改的内容还没保存。<br>不保存就退出的话，会回到上次保存的样子。</p>
+      <button class="btn btn-huge btn-primary" id="us-save" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 4h11l3 3v13H5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M9 4v5h6V4M8 20v-6h8v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+        </svg>
+        保存
+      </button>
+      <button class="btn btn-huge" id="us-no" type="button">不保存，直接退出</button>
+      <button class="btn btn-huge btn-ghost" id="us-cancel" type="button">取消，我还要继续改</button>
+    </div>
+  </div>
+
+  <div class="sheet" id="sheet-style" hidden>
+    <div class="sheet-in">
+      <h3 class="sheet-title">字号与配色</h3>
+      <p class="sheet-desc-sm">每份说明书单独记住，不同老人可以用不同的。</p>
+      <div class="seg-label">字号</div>
+      <div class="seg" id="seg-font"></div>
+      <div class="seg-label">配色</div>
+      <div class="seg" id="seg-theme"></div>
+      <button class="btn btn-huge btn-primary" id="st-close" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        好了
+      </button>
+    </div>
+  </div>
+
+  <div class="sheet" id="sheet-export" hidden>
+    <div class="sheet-in">
+      <h3 class="sheet-title">导出与打印</h3>
+      <p class="sheet-desc-sm" id="ex-sub"></p>
+      <p class="sheet-note" id="ex-audionote" hidden></p>
+      <div class="seg-label">打印时每页放几步</div>
+      <div class="seg" id="seg-perpage">
+        <button class="seg-bt is-on" data-p="1" type="button">每页 1 步<br><em>字最大，最清楚</em></button>
+        <button class="seg-bt" data-p="2" type="button">每页 2 步<br><em>省纸，图会小一些</em></button>
+      </div>
+      <p class="ex-prog" id="ex-prog" hidden></p>
+      <button class="btn btn-huge btn-primary" id="ex-pdf" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 3h8l4 4v14H6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M6 15h12" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        </svg>
+        导出 PDF（可打印）
+      </button>
+      <button class="btn btn-huge" id="ex-img" type="button">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M4 17l4.5-4.5 3 3L15 12l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+        </svg>
+        导出长图（可发微信）
+      </button>
+      <button class="btn btn-huge btn-ghost" id="ex-close" type="button">暂时不导出</button>
+      <div class="ex-list-box" id="ex-list" hidden></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+</div>
+<script src="vendor/jspdf.umd.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

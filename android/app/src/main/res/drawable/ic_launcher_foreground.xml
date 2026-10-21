@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 图标：一张纸，上面有个手指按下的红圈 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- 纸 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M35,20 L73,20 A5,5 0 0 1 78,25 L78,83 A5,5 0 0 1 73,88 L35,88 A5,5 0 0 1 30,83 L30,25 A5,5 0 0 1 35,20 Z" />
+
+    <!-- 纸上写的两行字 -->
+    <path
+        android:pathData="M40,35 L68,35 M40,45 L60,45"
+        android:strokeColor="#BDBBB0"
+        android:strokeWidth="3"
+        android:strokeLineCap="round" />
+
+    <!-- 手指按下的红圈 -->
+    <path
+        android:pathData="M40,62 a14,14 0 1,0 28,0 a14,14 0 1,0 -28,0"
+        android:strokeColor="#E24B4A"
+        android:strokeWidth="5" />
+
+    <!-- 指尖 -->
+    <path
+        android:fillColor="#E24B4A"
+        android:pathData="M49.5,50 a4.5,4.5 0 1,0 9,0 a4.5,4.5 0 1,0 -9,0" />
+
+</vector>
